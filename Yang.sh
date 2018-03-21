@@ -1,1 +1,0 @@
-sshfs erd561@raijin.nci.org.au:/g/data/e14/erd561/CMIP5 /Users/earl/Desktop/Yang

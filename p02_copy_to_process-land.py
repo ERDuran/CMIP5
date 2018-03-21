@@ -11,6 +11,16 @@ module load nco
 Earl Duran 
 created: 23-Feb-18
 e.duran@unsw.edu.au
+
+HIST:
+experiment = 'historical'
+start_time = 185001
+finish_time = 200512
+
+RCP:
+experiment = 'rcp85'
+start_time = 200601
+finish_time = 210012
 '''
 
 import os
@@ -21,7 +31,9 @@ my_dir = '/g/data/e14/erd561/CMIP5/process-land'
 
 models_list = sorted(os.listdir(CMIP5_dir))
 
-experiment = 'rcp85'
+experiment = 'historical'
+start_time = 185001
+finish_time = 200512
 
 frequency = 'mon'
 
@@ -32,10 +44,6 @@ initial_cond = 'r1i1p1'
 var = 'tos'
 
 version = 'latest'
-
-start_time = 200601
-
-finish_time = 210012
 
 for model in models_list:
     pls = os.listdir(CMIP5_dir + '/' + model)
@@ -139,7 +147,7 @@ for model in models_list:
         
         pls_out = os.listdir(output_path)
         if output_name in pls_out:
-            print("it's already there!")
+            print("it's already there! \n")
         else:
             os.system('cp ' + input_data_path + ' ' + output_data_path)
             print('Done. \n')
