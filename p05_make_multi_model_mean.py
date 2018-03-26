@@ -24,20 +24,13 @@ import os
 def listdir_nohidden(path):
     f_list = [f for f in os.listdir(path) if not f.startswith('.')]
     return f_list
-            
-data_dir = '/g/data/e14/erd561/CMIP5/process-land'
+
+data_dir = '/g/data/e14/erd561/CMIP5/bromeliad'
 
 my_dir = '/g/data/e14/erd561/CMIP5/bromeliad'
 
 # rcp85 or historical
 experiment = raw_input('experiment? e.g. rcp85, historical: ')
-
-if experiment == 'rcp85':
-    year_start = 2081
-    year_finish = 2101
-elif experiment == 'historical':
-    year_start = 1981
-    year_finish = 2001
 
 frequency = 'mon'
 
@@ -58,35 +51,31 @@ medium + '/' + initial_cond  + '/' +  var + '/' +  version
 
 data_ls = sorted(listdir_nohidden(data_path))
 
-my_ls = listdir_nohidden(my_path)
+my_ls = sorted(listdir_nohidden(my_path))
 
-for model in data_ls:
-    input_data_path = data_path + '/' +  model
-    
-    first_year = model[-16:-10]
-    if first_year[4:6] != '01':
-        print(first_year[4:6])
-        print(model[:-17] + " doesn't start in January! Rejected. \n")
-        continue
-    start_time = (year_start - int(first_year[0:4])) * 12
-    finish_time = (year_finish - int(first_year[0:4])) * 12 - 1
-    
-    output_name = model[:-17] + '_' + str(year_start) + '-' + str(year_finish-1) + 'mean.nc'
-    
-    my_data_path = my_path + '/' +  output_name
-    
-    print(model[:-17] + " averaged over " + str(year_start) + '-' + str(year_finish-1) +  "...")
-    if output_name in my_ls:
-        print("it's already there! \n")
-        
-    else:
-        os.system('ncra -d time,' + str(start_time) + ',' + str(finish_time) + ' ' + 
-                  input_data_path + ' ' + my_data_path)
-        print("Done. \n")
-    
-    
-    
-    
-    
-    
-    
+thefile = open('p04_models_list.txt', 'r')
+lines = thefile.readlines()
+#print(lines)
+#print(lines[0][:-1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

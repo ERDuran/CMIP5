@@ -14,12 +14,12 @@ e.duran@unsw.edu.au
 
 HIST:
 experiment = 'historical'
-start_time = 185001
-finish_time = 200512
+start_time = 198101
+finish_time = 200012
 
 RCP:
 experiment = 'rcp85'
-start_time = 200601
+start_time = 208101
 finish_time = 210012
 '''
 
@@ -31,9 +31,15 @@ my_dir = '/g/data/e14/erd561/CMIP5/process-land'
 
 models_list = sorted(os.listdir(CMIP5_dir))
 
-experiment = 'historical'
-start_time = 185001
-finish_time = 200512
+# rcp85 or historical
+experiment = raw_input('experiment? e.g. rcp85, historical: ')
+
+if experiment == 'rcp85':
+    start_time = 208101
+    finish_time = 210012
+elif experiment == 'historical':
+    start_time = 198101
+    finish_time = 200012
 
 frequency = 'mon'
 
@@ -41,9 +47,12 @@ medium = 'ocean'
 
 initial_cond = 'r1i1p1'
 
-var = 'tos'
+# tos or tauuo
+var = raw_input('var? e.g. tos, tauuo: ')
 
 version = 'latest'
+
+print("Processing for " + var + " " + experiment + " ... \n")
 
 for model in models_list:
     pls = os.listdir(CMIP5_dir + '/' + model)
@@ -101,33 +110,18 @@ for model in models_list:
         continue
     
     
-    # The CMIP5 Historical runs should start on January 1850
-    if str(start_time) in pls[0]:
-        pass
+    # If the CMIP5 Historical runs at least start before the start_time
+    if int(pls[0][-16:-10]) <= start_time:
+        print(model + " starts in " + pls[0][-16:-10] + " on or before " + str(start_time) + " so all good...")
     else:
-        print(model + " starts in " + pls[0][-16:-10] + " and not in " + str(start_time) + "...")
-        
-        if int(pls[0][-16:-10]) <= start_time:
-            print("start time is on or before " + str(start_time) + "...")
-            print('rejected. \n')
-            continue
-        else:
-            print('rejected. \n')
-            continue        
+        print(model + " starts in " + pls[0][-16:-10] + " after " + str(start_time) + " so that's rejected. \n")
+        continue
     # And finish in December 2005
-    if str(finish_time) in pls[-1]:
-        pass
+    if int(pls[-1][-9:-3]) >= finish_time:
+        print(model + " finishes in " + pls[-1][-9:-3] + " on or after " + str(finish_time) + " so all good...")
     else:
-        print(model + " finishes in " + pls[-1][-9:-3] + " and not in " + str(finish_time) + "...")
-        
-        if int(pls[0][-9:-3]) > finish_time:
-            print("finish time is after " + str(finish_time) + "...")
-            print('rejected. \n')
-            continue
-        else:
-            print('rejected. \n')
-            continue
-    
+        print(model + " finishes in " + pls[-1][-9:-3] + " before " + str(finish_time) + " so that's rejected. \n")
+        continue
     
     
     ########################################        
@@ -139,8 +133,7 @@ for model in models_list:
     
     # Because surface properties are 2D, the data should be in one file
     if len(pls) == 1:
-        print(model + " is all good :) ...")
-        print("copying into " + my_dir + "...")
+        print("copying into " + output_data_path + "...")
         ########################################
         input_data_path = input_path + '/' +  pls[0]
         ########################################
@@ -154,7 +147,7 @@ for model in models_list:
     
     else:
         print(model + " has " + str(len(pls)) + " chunks of data and not one...")
-        print("concatenating into " + my_dir + "...")
+        print("concatenating into " + output_data_path + "...")
         ########################################
         input_data_path = ''
         for n in range(len(pls)):
