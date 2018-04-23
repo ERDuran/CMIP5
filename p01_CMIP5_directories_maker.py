@@ -9,19 +9,6 @@ output_dir = raw_input('output directory? e.g. anthurium, bromeliad: ')
 
 my_dir = erd561_dir + '/' + output_dir
 
-# models_list = sorted(os.listdir(CMIP5_dir))
-
-# if var in ['tos', 'tauuo']:
-#     models_list = sorted(os.listdir(CMIP5_dir))
-# elif var in ['uas', 'vas']:
-#     with open('p05_index_and_pools.pkl', 'rb') as f:
-#         lat_warmN, lat_warmS, lon_warmW, lon_warmE, \
-#         SAM_index_sorted_cleaned, warm_pool_sorted_cleaned, wind_pool_sorted_cleaned = \
-#         pickle.load(f)
-#         models_list = sorted(SAM_index_sorted_cleaned)
-
-# print(models_list)
-
 experiment = raw_input('experiment? e.g. rcp85, historical: ')
 
 frequency = 'mon'
