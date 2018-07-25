@@ -2,8 +2,8 @@ import os
 import pickle
 import numpy as np
 
-input_path = '/short/e14/erd561/mom/archive/gfdl_nyf_1080_hist/'
-output_path = '/g/data/e14/erd561/R8exp/gfdl_nyf_1080_hist/first_5years/'
+input_path = '/short/e14/erd561/mom/archive/gfdl_nyf_1080_hist_8099/'
+output_path = '/g/data/e14/erd561/R8exp/gfdl_nyf_1080_hist_8099/first_5years/'
 
 if not os.path.exists(output_path):
     print("Creating " + output_path + " ...")
@@ -21,7 +21,7 @@ pls_out = os.listdir(output_path)
 for f,v,d in zip(file_names, var_names, data_names):
     data_name = f + '_' + d
     output_data_path_all = ''
-    for yr in range(502, 507):
+    for yr in range(502, 506):
         data_name_yr = data_name + '_'+ str(yr)
         input_data_path = input_path + 'output' + str(yr) + '/' + f + '.nc'
         output_data_path = output_path + data_name_yr + '.nc'
