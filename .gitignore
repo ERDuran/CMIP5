@@ -1,3 +1,4 @@
+dask*
 old_stuff/
 .ipynb_checkpoints/
 *.pkl
